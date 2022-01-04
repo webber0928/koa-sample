@@ -1,48 +1,16 @@
-import Koa from 'koa';
-import cors from '@koa/cors';
-import logger from 'koa-morgan';
-import bodyParser from 'koa-bodyparser';
-import router from './routes';
+import koa from 'koa';
 
-const app = new Koa();
+const app = new koa();
 
-// Set middlewares
-app.use(
-  bodyParser({
-    enableTypes: ['json', 'form'],
-    formLimit: '10mb',
-    jsonLimit: '10mb'
-  })
-);
+const errorHandler = require(`./errorHandler`);
+const middleware = require(`./middleware`);
+const routers = require(`./routers`);
 
-// Logger
-app.use(
-  logger('dev', {
-    skip: () => app.env === 'test'
-  })
-);
-
-// Enable CORS
-app.use(cors());
-
-// Default error handler middleware
-app.use(async (ctx, next) => {
-  try {
-    await next();
-    if (ctx.status === 404) {
-      ctx.throw(404);
-    }
-  } catch (err) {
-    ctx.status = err.statusCode || err.status || 500;
-    ctx.body = {
-      statusCode: ctx.status,
-      message: err.message
-    };
-    ctx.app.emit('error', err, ctx);
-  }
-});
+app.proxy = true;
 
 // Routes
-app.use(router.routes());
+app.use(errorHandler());
+app.use(middleware(app));
+app.use(routers(app));
 
 export default app;

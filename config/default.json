@@ -1,0 +1,46 @@
+{
+    "mode": "localhost",
+    "website": "https://localhost",
+    "mysql": {
+        "database": "myData",
+        "username": "root",
+        "password": "root",
+        "host": "localhost",
+        "port": 3306,
+        "dialect": "mysql"
+    },
+    "AWS": {
+        "accessKeyId": "XXX",
+        "secretAccessKey": "XXX",
+        "region": "us-west-2",
+        "snsRegion": "us-west-2",
+        "S3": {
+            "region": "us-west-2",
+            "Bucket": "dexetrade-dev",
+            "CacheControl": "max-age=604800",
+            "baseUrl": "https://localhost-dev.s3.us-west-2.amazonaws.com"
+        }
+    },
+    "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "db": 1,
+        "password": null,
+        "expiresIn": 3600,
+        "tokenExpiredSeconds": 3600
+    },
+    "JWT": {
+        "secret": "localhost-2022",
+        "expiresIn": "120m",
+        "tokenExpired": 7200,
+        "refreshTokenExpired": 43200
+    },
+    "cookies": {
+        "admin": "localhost-cookie"
+    },
+    "cronTimes": {
+        "collectToPool": "0/20 * * * * *",
+        "transaction": "*/10 * * * * *",
+        "redemption": "*/10 * * * * *"
+    }
+}

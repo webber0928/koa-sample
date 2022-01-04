@@ -1,0 +1,12 @@
+{
+    "2000": {
+        "status": 500,
+        "code": 2000,
+        "message": "undefined error"
+    },
+    "2001": {
+        "status": 400,
+        "code": 2001,
+        "message": "import users email required"
+    }
+}
